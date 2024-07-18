@@ -6,11 +6,9 @@ async function Navbar() { // Convierto el componente en una funcion async
     const session = await getServerSession()
     console.log(session?.user)
     return (
-        <nav className='bg-zinc-900 p-4'>
+        <nav className='bg-customBlue p-4'>
             <div className='flex justify-between container mx-auto'>
-                <Link href="/">
-                    <h1 className='font-bold text-xl'>NextAuth</h1>
-                </Link>
+                <h1 className='font-bold text-xl'>Clinica Stay Safe</h1>
                 <ul className='flex gap-x-2'>
                     {session ? (
                         <li className='px-3 py-1'>
@@ -19,13 +17,7 @@ async function Navbar() { // Convierto el componente en una funcion async
                     ) : (
                         <>
                             <li className='px-3 py-1'>
-                                <Link href="/login">Login</Link>
-                            </li>
-                            <li className='px-3 py-1'>
-                                <Link href="/register">Registro</Link>
-                            </li>
-                            <li className='px-3 py-1'>
-                                <Link href="/about">About</Link>
+                                <Link href="/login">Iniciar Sesion</Link>
                             </li>
                         </>
                     )}
