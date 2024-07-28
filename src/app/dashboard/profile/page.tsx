@@ -1,47 +1,55 @@
 "use client"
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
 import axios from 'axios';
 import { AxiosError } from 'axios';
 import { FormEvent } from 'react';
 
+interface Client{
+    _id:string;
+    fullname: string;
+    email: string;
+    phone: string;
+}
+
+
 const ProfilePage = () => {
     const { data: session, status } = useSession(); // DATA DE LA SESION
     console.log(session, status);
 
-    //======== DATA
-    const originalData = [
-        {
-            name: "Apple MacBook Pro 17\"",
-            color: "Silver",
-            category: "Laptop",
-            price: 2999
-        },
-        {
-            name: "Microsoft Surface Pro",
-            color: "White",
-            category: "Laptop PC",
-            price: 1999
-        },
-    ];
-    //====================
-    
-    //=====LOGICA PARA LA BUSQUEDA DE LA LISTA==//
-    const [searchText, setSearchText] = useState("");
-    const [filteredData, setFilteredData] = useState(originalData);
+    const [clients, setClients] = useState<Client[]>([]);
+    const [filteredData, setFilteredData] = useState<Client[]>([]);
+    const [searchText, setSearchText] = useState<string>('');
 
-    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    useEffect(() => {
+        // Traer la data de axios
+        const fetchClients = async () => {
+            try {
+                const response = await axios.get<Client[]>('/api/auth/addclient');
+                setClients(response.data);
+                setFilteredData(response.data)
+            } catch (error) {
+                console.log(error);
+                if (axios.isAxiosError(error)) {
+                    setAxiosError(error.response?.data.message || 'Error desconocido');
+                }
+            }
+        };
+        fetchClients();
+    }, []);
+
+    
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setSearchText(value);
-        const filtered = originalData.filter(item =>
-            item.name.toLowerCase().includes(value.toLowerCase()) || // Filtra según el nombre del producto
-            item.color.toLowerCase().includes(value.toLowerCase()) || // Filtra según el color
-            item.category.toLowerCase().includes(value.toLowerCase()) || // Filtra según la categoría
-            item.price.toString().includes(value) // Filtra según el precio
+        const filtered = clients.filter(client =>
+            client.fullname.toLowerCase().includes(value.toLowerCase())
         );
         setFilteredData(filtered);
     };
+
 
     //====LÓGICA PARA AGREGAR NUEVO CLIENTE FRONTEND
     const [showModal, setShowModal] = useState(false);
@@ -126,7 +134,7 @@ const ProfilePage = () => {
                             </th>
                             <th scope="col" className="px-6 py-3">NOMBRE</th>
                             <th scope="col" className="px-6 py-3">EMAIL</th>
-                            <th scope="col" className="px-6 py-3">TURNO</th>
+                            <th scope="col" className="px-6 py-3">TELEFONO</th>
                             <th scope="col" className="px-6 py-3">ACCION</th>
                         </tr>
                     </thead>
@@ -140,13 +148,13 @@ const ProfilePage = () => {
                                     </div>
                                 </td>
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {item.name}
+                                    {item.fullname}
                                 </th>
                                 <td className="px-6 py-4">
-                                    {item.color}
+                                    {item.email}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {item.category}
+                                    {item.phone}
                                 </td>
                                 <td className="px-6 py-4">
                                     <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>

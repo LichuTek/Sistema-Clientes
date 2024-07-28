@@ -11,7 +11,7 @@ const clientSchema = new Schema({ //
         type:String,
         required: [true,"Nombre requerido"],
         unique:false, // Si es unico o puede repetirse
-        minLength: [6, "El nombre debe ser de al menos 3 caracteres"],
+        minLength: [6, "El nombre debe ser de al menos 6 caracteres"],
         maxLength:[50,"El nombre debe tener menos de 50 caracteres"]
 
     },

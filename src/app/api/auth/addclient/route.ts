@@ -21,3 +21,15 @@ export async function POST(request:Request){
         console.log(error)
     }
 }
+
+export async function GET (){
+    try {
+        await connectDB(); // Conexion a la DB
+        const clients = await Client.find();// agarro todos los clientes
+        return NextResponse.json(clients)
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({message: "Error al recuperar los clientes"}, {status:500})
+        
+    }
+}
