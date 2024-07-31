@@ -9,12 +9,12 @@ function LoginPage() {
   // Funcion que se va a ejecutar al enviar el form
   const [error, setError] = useState("")
   const router = useRouter() // extraigo lo que viene en userouter
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    
+
     try {
-      const res = await signIn('credentials',{ // Si el login salio bien voy a usar esta res para hacer el redirect
+      const res = await signIn('credentials', { // Si el login salio bien voy a usar esta res para hacer el redirect
         email: formData.get('email'),
         password: formData.get("password"),
         redirect: false
@@ -22,12 +22,12 @@ function LoginPage() {
       });
       if (res?.error) return setError(res.error as string) // Si la respuesta es error arroja un error
 
-      if (res?.ok) return router.push("/dashboard/profile") // Realizo la redireccion al dashboard
-      
+      if (res?.ok) return router.push("/dashboard/home") // Realizo la redireccion al dashboard
+
     } catch (error) {
       console.log(error)
     }
-    
+
   }
   return (
     <>

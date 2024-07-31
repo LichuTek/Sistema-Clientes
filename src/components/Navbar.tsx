@@ -12,7 +12,7 @@ async function Navbar() { // Convierto el componente en una funcion async
                 <ul className='flex gap-x-2'>
                     {session ? (
                         <li className='px-3 py-1'>
-                            <Link href="/dashboard/profile">Perfil</Link>
+                            <Link href="/dashboard/home">Perfil</Link>
                         </li>
                     ) : (
                         <>
