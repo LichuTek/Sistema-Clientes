@@ -18,7 +18,7 @@ const useClients = () => {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axios.get<Client[]>('/api/auth/addclient');
+                const response = await axios.get<Client[]>('/api/auth/clients');
                 setClients(response.data);
                 setFilteredData(response.data);
             } catch (error) {

@@ -2,6 +2,10 @@
 "use client"
 import React from 'react';
 import { useState } from 'react';
+import { AiFillEdit } from 'react-icons/ai';
+import { AiFillDelete } from 'react-icons/ai';
+import { AiFillInfoCircle } from 'react-icons/ai';
+
 
 interface Client {
     _id: string;
@@ -28,10 +32,10 @@ const ClientTable: React.FC<ClientTableProps> = ({ clients, searchText, handleSe
         setShowModal(false);
     };
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-md max-h-[1200px] mx-auto max-w-[1800px]">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-md max-h-[1200px] mx-auto max-w-[1200px]">
             <div className="pb-4 bg-white dark:bg-gray-900 mt-5">
                 <label htmlFor="table-search" className="sr-only">Search</label>
-                <div className="relative mt-1">
+                <div className="relative py-2 ml-1">
 
                     <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -89,7 +93,14 @@ const ClientTable: React.FC<ClientTableProps> = ({ clients, searchText, handleSe
                             <td className="px-6 py-4">{item.email}</td>
                             <td className="px-6 py-4">{item.phone}</td>
                             <td className="px-6 py-4">
-                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white py-3 px-3 text-xl rounded-md'><AiFillEdit /></button>
+                                <button className='bg-green-500 hover:bg-green-700 text-white py-3 px-3 text-xl rounded-md ml-2'><AiFillInfoCircle /></button>
+                                <button className='bg-red-500 hover:bg-red-700 text-white py-3 px-3 text-xl rounded-md ml-2'><AiFillDelete /></button>
+
+
+
+
+
                             </td>
                         </tr>
                     ))}

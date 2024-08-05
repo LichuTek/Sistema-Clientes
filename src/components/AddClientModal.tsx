@@ -22,7 +22,7 @@ const AddClientModal: React.FC<AddClientModalProps> = ({ showModal, handleCloseM
         e.preventDefault();
 
         try {
-            const saveResponse = await axios.post('/api/auth/addclient', {
+            const saveResponse = await axios.post('/api/auth/clients', {
                 fullname: formData.name,
                 email: formData.email,
                 phone: formData.phone
