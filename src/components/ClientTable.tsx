@@ -1,5 +1,7 @@
 // components/ClientTable.tsx
+"use client"
 import React from 'react';
+import { useState } from 'react';
 
 interface Client {
     _id: string;
@@ -14,12 +16,23 @@ interface ClientTableProps {
     handleSearchChange: (value: string) => void;
 }
 
+
 const ClientTable: React.FC<ClientTableProps> = ({ clients, searchText, handleSearchChange }) => {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleButtonClick = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-md max-h-[450px]">
-            <div className="pb-4 bg-white dark:bg-gray-900">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-md max-h-[1200px] mx-auto max-w-[1800px]">
+            <div className="pb-4 bg-white dark:bg-gray-900 mt-5">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
+
                     <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -34,6 +47,13 @@ const ClientTable: React.FC<ClientTableProps> = ({ clients, searchText, handleSe
                         onChange={(e) => handleSearchChange(e.target.value)}
                     />
                 </div>
+                <button
+                    className="bg-blue-600 font-bold text-white py-1 px-3 mt-2 ml-2 "
+                    onClick={handleButtonClick}
+                >
+                    Agregar Cliente
+                </button>
+
             </div>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

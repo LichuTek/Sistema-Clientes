@@ -23,12 +23,6 @@ const ProfilePage: React.FC = () => {
 
     return (
         <div className="bg-neutral-300 min-h-screen">
-            <button
-                className="bg-blue-600 font-bold text-white py-2 px-4 mt-2"
-                onClick={handleButtonClick}
-            >
-                Agregar Cliente
-            </button>
             <ClientTable clients={filteredData} searchText={searchText} handleSearchChange={handleSearchChange} />
             <AddClientModal showModal={showModal} handleCloseModal={handleCloseModal} />
         </div>
