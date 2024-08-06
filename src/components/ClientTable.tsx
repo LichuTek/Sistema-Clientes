@@ -1,11 +1,12 @@
 // components/ClientTable.tsx
 "use client"
 import React from 'react';
+import AddClientModal from './AddClientModal';
 import { useState } from 'react';
 import { AiFillEdit } from 'react-icons/ai';
 import { AiFillDelete } from 'react-icons/ai';
 import { AiFillInfoCircle } from 'react-icons/ai';
-
+import InfoClientModal from './InfoClientModal';
 
 interface Client {
     _id: string;
@@ -23,13 +24,20 @@ interface ClientTableProps {
 
 const ClientTable: React.FC<ClientTableProps> = ({ clients, searchText, handleSearchChange }) => {
     const [showModal, setShowModal] = useState(false);
-
+    const [showModalInfo, setShowModalInfo] = useState(false);
+    //ADD CLIENT MODAL
     const handleButtonClick = () => {
         setShowModal(true);
     };
-
     const handleCloseModal = () => {
         setShowModal(false);
+    };
+    //INFO MODAL
+    const infoButtonClick = () => {
+        setShowModalInfo(true);
+    };
+    const handleCloseModalInfo = () => {
+        setShowModalInfo(false);
     };
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-md max-h-[1200px] mx-auto max-w-[1200px]">
@@ -57,7 +65,7 @@ const ClientTable: React.FC<ClientTableProps> = ({ clients, searchText, handleSe
                 >
                     Agregar Cliente
                 </button>
-
+                <AddClientModal showModal={showModal} handleCloseModal={handleCloseModal} />
             </div>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -94,9 +102,9 @@ const ClientTable: React.FC<ClientTableProps> = ({ clients, searchText, handleSe
                             <td className="px-6 py-4">{item.phone}</td>
                             <td className="px-6 py-4">
                                 <button className='bg-blue-500 hover:bg-blue-700 text-white py-3 px-3 text-xl rounded-md'><AiFillEdit /></button>
-                                <button className='bg-green-500 hover:bg-green-700 text-white py-3 px-3 text-xl rounded-md ml-2'><AiFillInfoCircle /></button>
+                                <button onClick={infoButtonClick} className='bg-green-500 hover:bg-green-700 text-white py-3 px-3 text-xl rounded-md ml-2'><AiFillInfoCircle /></button>
                                 <button className='bg-red-500 hover:bg-red-700 text-white py-3 px-3 text-xl rounded-md ml-2'><AiFillDelete /></button>
-
+                                <InfoClientModal showModalInfo={showModalInfo} handleCloseModalInfo={handleCloseModalInfo} />
 
 
 
